@@ -1,5 +1,5 @@
 import warnings
-
+from LNPP import *
 import numpy as np
 import networkx as nx
 from scipy.linalg import eigh
@@ -151,14 +151,17 @@ def general_sweep_algorithm_laplacian_final(G):
     print("排序后的特征值列表：",eigenvalues[sorted_indices])
     best_S = list()
     best_density = 0
-    for x in range(0,len(eigenvalues)):
-        v1 = eigenvectors[-x]
-        print("当前特征值对应的特征向量:",eigenvectors[-x])
+    #for x in range(0,len(eigenvalues)):
+    for x in range(0,10):
+        v1 = eigenvectors[:,-x]
+        print("当前特征值的大小为：",eigenvalues[-x])
+        print("当前特征值对应的特征向量:",eigenvectors[:,-x])
         # Sort nodes in nonincreasing (descending) order of v1(i)
         sorted_nodes = np.argsort(v1)
         nodes_sorted = []
         G_nodes=list(G.nodes)
-        for i in sorted_nodes:
+        #循环访问对应特征值最大的点
+        for i in sorted_nodes[::-1]:
             nodes_sorted.append(G_nodes[i])
         print("sorted_node lists is",nodes_sorted)
 
@@ -193,20 +196,23 @@ def general_sweep_algorithm_laplacian_final_DP(G):
     # Compute the Laplacian matrix
     laplacian_matrix = nx.laplacian_matrix(G).todense()
     # Compute eigenvalues and eigenvectors
-    eigenvalues, eigenvectors = eigh(laplacian_matrix)
-    print("未排序的特征值:")
+    #eigenvalues, eigenvectors = eigh(laplacian_matrix)
+    epsilon = 400
+    k=15
+    eigenvalues, eigenvectors = lnpp(laplacian_matrix, epsilon, k)
+    print("未排序的加噪特征值:")
     print(eigenvalues)
-    print("\n未排序的特征向量:")
+    print("\n未排序的加噪特征向量:")
     print(eigenvectors)
     # Use the second smallest eigenvector (Fiedler vector)
     sorted_indices = np.argsort(eigenvalues)
-    print("特征值大小的排序为：",sorted_indices)
-    print("排序后的特征值列表：",eigenvalues[sorted_indices])
+    print("加噪特征值大小的排序为：",sorted_indices)
+    print("排序后的加噪特征值列表：",eigenvalues[sorted_indices])
     best_S = list()
     best_density = 0
     for x in range(0,len(eigenvalues)):
-        v1 = eigenvectors[-x]
-        print("当前特征值对应的特征向量:",eigenvectors[-x])
+        v1 = eigenvectors[:,-x]
+        print("当前特征值对应的特征向量:",eigenvectors[:,-x])
         # Sort nodes in nonincreasing (descending) order of v1(i)
         sorted_nodes = np.argsort(v1)
         nodes_sorted = []

@@ -3,11 +3,12 @@ import numpy as np
 import dsd
 import networkx as nx
 from dsd import *
+from LNPP import *
 from datetime import datetime
 import matplotlib.pyplot as plt
 from greedypeeling import charikar_peeling
 from spectral import *
-G = nx.read_edgelist('./datasets/Facebook/facebook/414.edges', nodetype=int)
+G = nx.read_edgelist('./datasets/Facebook/facebook/686.edges', nodetype=int)
 # circles = read_circles("./datasets/Facebook/facebook/414.circles")
 # lab = explore_and_summarize_network(edgelist = G.edges(), vertices=G.nodes(), subgraph=None, circles=circles)
 print("node is ",G.nodes)
@@ -42,14 +43,14 @@ print("G的边",G.edges)
 # print('run time', datetime.now()-start, '\n')
 
 #
-# print("greedypelling method")
-# start = datetime.now()
-# dense_subgraph,density = charikar_peeling(G)
-# # Print the nodes and edges of the dense subgraph
-# print('run time', datetime.now()-start, '\n')
-# print("Nodes in dense subgraph:", dense_subgraph.nodes())
-# print("Density of the dense subgraph:", density)
-# print("Edges in dense subgraph:", dense_subgraph.edges())
+print("greedypelling method")
+start = datetime.now()
+dense_subgraph,density = charikar_peeling(G)
+# Print the nodes and edges of the dense subgraph
+print('run time', datetime.now()-start, '\n')
+print("Nodes in dense subgraph:", dense_subgraph.nodes())
+print("Density of the dense subgraph:", density)
+print("Edges in dense subgraph:", dense_subgraph.edges())
 
 # print("Spectral method")
 # start = datetime.now()
