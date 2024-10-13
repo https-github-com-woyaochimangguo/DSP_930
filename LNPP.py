@@ -95,6 +95,7 @@ def lnpp(A, epsilon, k):
     (numpy.ndarray, numpy.ndarray): 差分隐私保护的前 k 个特征值和特征向量
     """
     # 1. 矩阵分解，获取前 k 个特征值和特征向量
+    A = nx.laplacian_matrix(A).todense()
     eigenvalues, eigenvectors = eigh(A)
     eigenvalues = eigenvalues[-k:]  # 取前 k 个最大的特征值
     eigenvectors = eigenvectors[:, -k:]  # 对应的特征向量

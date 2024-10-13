@@ -5,8 +5,10 @@ from collections import defaultdict
 
 # 定义几何分布噪声生成函数
 def geometric_noise(epsilon):
-    return np.random.geometric(p=1 - np.exp(-epsilon))
-
+    # 使用几何分布生成噪声的绝对值
+    noise = np.random.geometric(p=1 - np.exp(-epsilon))
+    # 返回对称的噪声
+    return  noise
 
 # 定义桶排序结构
 class Bucket:
@@ -33,7 +35,7 @@ class Bucket:
 # 差分隐私的最密子图检测算法
 def DP_Densest_Subgraph_Linear(graph, epsilon, sigma, C):
     n = len(graph)  # 节点数量
-    T = C * epsilon * np.log(n) * np.log(1 / sigma)  # 计算 T 值
+    T = (C / epsilon) * np.log(n) * np.log(1 / sigma)  # 计算 T 值
     epsilon0 = epsilon1 = epsilon2 = epsilon_prime = epsilon / 4
 
     # 初始化桶
@@ -105,4 +107,3 @@ def test_DP_Densest_Subgraph_Linear(G):
 
 
 # 运行测试
-test_DP_Densest_Subgraph_Linear(G)

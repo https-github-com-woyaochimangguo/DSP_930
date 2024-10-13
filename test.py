@@ -8,6 +8,8 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 from greedypeeling import charikar_peeling
 from spectral import *
+from baseline1_detection import *
+from baseline2_lp import *
 G = nx.read_edgelist('./datasets/Facebook/facebook/686.edges', nodetype=int)
 # circles = read_circles("./datasets/Facebook/facebook/414.circles")
 # lab = explore_and_summarize_network(edgelist = G.edges(), vertices=G.nodes(), subgraph=None, circles=circles)
@@ -62,7 +64,7 @@ print("Edges in dense subgraph:", dense_subgraph.edges())
 # GG = nx.gnm_random_graph(n=50, m=200)
 print("Spectral_lp method")
 start = datetime.now()
-num_edges,density_ = general_sweep_algorithm_laplacian_final(G)
+num_edges,density_ = general_sweep_algorithm_laplacian_final(G,10)
 # densest_subgraph_sp, density_sp = general_sweep_algorithm_laplacian_1(G)
 print('run time', datetime.now()-start, '\n')
 # print("Nodes in the densest subgraph:", densest_subgraph_sp)

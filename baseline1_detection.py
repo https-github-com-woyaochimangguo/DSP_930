@@ -80,4 +80,3 @@ def test_SEQDENSEDP():
 
 
 # 运行测试
-test_SEQDENSEDP()
